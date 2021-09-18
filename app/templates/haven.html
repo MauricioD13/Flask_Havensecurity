@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% import 'macros.html' as macros %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block title %}
+    {{super()}}
+    Bienvenidos 
+{% endblock %}
+
+{% block content %}
+<!--    <div class="page-header">
+        {% if username %}
+            <h1> Bienvenido {{ username.capitalize()}}</h1>
+        {% else %}
+            <h1> Bienvenido </h1>
+        {% endif %}
+    </div>-->
+
+<!--CARUSEL-->
+    <div id="carusel" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carusel" data-slide-to="0" class="active"></li>
+            <li data-target="#carusel" data-slide-to="1"></li>
+            <li data-target="#carusel" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <img class="first-slide" src="{{ url_for('static',filename='images/full_industrial01.jpg') }}"
+                    alt="First slide">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1>HavenSecurity</h1>
+                        <p>Solucion orienta a industrias pequeñas </p>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <img class="second-slide" src="{{ url_for('static',filename='images/iot01.jpg') }}"
+                    alt="Second slide">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1>Internet de las cosas</h1>
+                        <p>Contiene tecnologia de internet de las cosas para</p>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <img class="third-slide" src="{{ url_for('static',filename='images/industrial.jpeg') }}"
+                    alt="Third slide">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1>Ejemplo de slide 3</h1>
+                        <p>Aqui va a ir descripciones atracticas del proyecto</p>
+                    </div>
+                </div>
+            </div>
+            <a class="left carousel-control" href="#carusel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previo</span>
+            </a>
+            <a class="right carousel-control" href="#carusel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Siguiente</span>
+            </a>
+        </div>
+    </div>
+    <div class="container" id="resume">
+        <div class="row">
+            <p><h3>El prototipo de seguridad está integrado con tres sensores, temperatura, gases y
+        RFID encargados de la adquisición de las variables físicas y de autenticación
+        respectivamente, el uso de la cámara corresponde a información complementaria
+        para la correlación con el RFID. Adicionalmente se suministra una página WEB
+        donde el usuario puede estar monitoreando el sistema implementado. Finalmente
+        se integra un ventilador quien actúa dependiendo los datos que se reciban de los
+        sensores quien se encarga de regular las condiciones térmicas y de dispersión de
+        gases dependiendo el caso en particular.
+            <!--Justificar, espacio entre renglones y separar parrafos -->
+            </h3></p>
+        </div>
+    </div>
+
+    <!--Descripcion del proyecto-->
+    <div class="container" id="descriptions">
+          <div class="row">
+            <div class="col-lg-4">
+              <img class="img-circle" src="{{ url_for('static',filename='images/raspberry.jpg') }}" alt="Generic placeholder image" width="140" height="140">
+              <h2>Raspberry Pi 3</h2>
+              <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+            </div><!-- /.col-lg-4 -->
+            <div class="col-lg-4">
+              <img class="img-circle" src="{{ url_for('static', filename='images/ESP-32.jpg') }}" alt="Generic placeholder image" width="140" height="140">
+              <h2>Modulo ESP32</h2>
+              <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
+              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+            </div><!-- /.col-lg-4 -->
+            <div class="col-lg-4">
+              <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+              <h2>Sensores</h2>
+              <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+            </div><!-- /.col-lg-4 -->
+        </div><!-- /.row -->
+      </div>
+
+
+{% endblock %}

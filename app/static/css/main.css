@@ -1,0 +1,21 @@
+html *{
+    font-family: sans-serif;
+}
+
+#shuriken_logo img {
+    max-width: 30px;
+}
+
+#industrial img{
+   width: 500px;
+   height: 500px;
+}
+
+#descriptions div {
+    position: relative;
+    top: 200px;
+}
+#resume div{
+    position:relative;
+    top: 350px;
+}
