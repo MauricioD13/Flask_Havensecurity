@@ -1,6 +1,6 @@
 from flask import render_template, session, redirect, url_for, flash
 from flask_login import login_user, login_required, logout_user
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 
 from app.db_management import add_user, get_user
 from app.forms import LoginForm, SignupForm
@@ -26,7 +26,11 @@ def login():
         if user_obj is not None:
             password_from_db = user_obj.password
 
-            if compare_digest(password, password_from_db):
+            print(f"password: {password}")
+            print("--------------------------------")
+            print(f"password_from_db: {password_from_db}")
+
+            if check_password_hash(password_from_db, password):
                 """Se usa compare_digest porque evita los ataques de tiempos
                 Es decir, no revela informacion por el tiempo de comparacion"""
                 user_data = UserData(username, password)
@@ -39,7 +43,7 @@ def login():
         else:
             flash('Informacion no coicide 1')
         
-        return redirect(url_for('haven'))
+        return redirect(url_for('auth.login'))
 
     return render_template('login.html', **context)
 
@@ -50,6 +54,7 @@ def logout():
     logout_user()
     flash('Regresa pronto')
     return redirect(url_for('haven'))
+
 
 @auth.route('signup', methods=['GET', 'POST'])
 def signup():
@@ -66,11 +71,13 @@ def signup():
         mail = signup_form.mail.data
         username = signup_form.username.data
         password = signup_form.password.data
-        print(f"|{password}|")
         password_hash = generate_password_hash(password)
-
-        add_user(name, lastname, mail, username, password)
-
+        
+        user_data = UserData(username, password_hash)
+        add_user(name, lastname, mail, username, password_hash)
+        user = UserModel(user_data)
+        login_user(user)
+        
         flash('Usuario agregado correctamente')
         return redirect(url_for('dashboard'))
 

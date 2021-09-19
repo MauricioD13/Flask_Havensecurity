@@ -1,26 +1,37 @@
-from flask import request, redirect, render_template, session, flash, make_response, url_for
-from flask_login import login_required, current_user
+import io
 
+from flask import request, redirect, render_template, session, make_response
+from flask_login import login_required, current_user
+import base64
+from io import BytesIO
+from matplotlib.figure import Figure
 
 from app import create_app
-from app.db_management import TaskSchema, init_db
+from app.db_management import init_db
 import random
 
 random.seed(0)
 
 app, db, ma = create_app()
 
-
 temp = {}
+x_values = []
 for i in range(5):
-    temp[str(random.randint(1,35))] = '0' + str(random.randint(1,30)) + '/' + '0' + str(random.randint(1,12))
+    aux = random.randint(1, 35)
+    x_values.append(aux)
+    temp[str(aux)] = '0' + str(random.randint(1, 30)) + '/' + '0' + str(random.randint(1, 12))
 
 gas = {}
 for i in range(5):
     gas[str(random.randint(300, 800))] = '0' + str(random.randint(1, 30)) + '/' + '0' + str(random.randint(1, 12))
+
+
 with app.app_context():
+    # Es necesario cargar el contexto de la aplicación  para poder crear las tablas
     db.create_all()
 init_db()
+
+
 @app.route('/')
 def index():
     """Función que extrae la información de la IP del usuario
@@ -34,7 +45,7 @@ def index():
     return response
 
 
-@app.route('/haven', methods=['GET','POST'])
+@app.route('/haven', methods=['GET', 'POST'])
 def haven():
     """Método que se usa para:
     - Crear una sesion y guardar la ip del usuario 
@@ -43,14 +54,31 @@ def haven():
         [method]:Pasar parametros por medio de un diccionario al html y renderizar HTML 
     """
     user_ip = session.get('user_ip')
-    #username = current_user.id
 
     context = {
-        'user_ip': user_ip,
-        #'username': username
-
+        'user_ip': user_ip
     }
     return render_template('haven.html', **context)
+
+
+@app.route('/dashboard')
+@login_required
+def dashboard():
+    username = current_user.id
+    fig = Figure()
+    ax = fig.subplots()
+    ax.plot(x_values)
+    buf = BytesIO()
+    fig.savefig(buf, format="png")
+
+
+    context = {
+        'temp': temp,
+        'gas': gas,
+        'username': username
+    }
+    return render_template('dashboard.html', **context)
+
 
 """
 #Rutas dinamicas que cambian segun un parametro
@@ -66,10 +94,7 @@ def update(todo_id, done):
     update_to_do(user_id, todo_id, done)
     return redirect(url_for('hello'))
 """
-@app.route('/server')
-def serv_error():
-    raise (Exception('500 error'))
-    # Es necesario apagar el modo debug para que funcione
+
 
 @app.errorhandler(404)  # Manejo de error de la pagina
 def not_found(error):
@@ -80,16 +105,6 @@ def not_found(error):
 @app.errorhandler(500)
 def server_error(error):
     return render_template('Error_500.html', error=error)
-
-
-@app.route('/dashboard')
-#@login_required
-def dashboard():
-    context = {
-        'temp':temp,
-        'gas':gas
-    }
-    return render_template('dashboard.html', **context)
 
 
 if __name__ == '__main__':
