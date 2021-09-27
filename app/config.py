@@ -13,7 +13,6 @@ class Config_development:
 
 class Config_production:
 
-    #
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     ENV = 'production'
     DEBUG = False
