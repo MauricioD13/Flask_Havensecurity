@@ -58,6 +58,9 @@ def logout():
 @auth.route('signup', methods=['GET', 'POST'])
 def signup():
     signup_form = SignupForm()
+    session['big'] = list(range(500))
+    session['secret'] = 'Prueba'
+    csrf.generate_csrf()
     context = {
         'signup_form': signup_form
     }
@@ -71,12 +74,16 @@ def signup():
         username = signup_form.username.data
         password = signup_form.password.data
         password_hash = generate_password_hash(password)
-        add_user(name, lastname, mail, username, password_hash)
-        user_data = UserData(username, password_hash)
-        user = UserModel(user_data)
-        login_user(user)
-        
-        flash('Usuario agregado correctamente')
-        return redirect(url_for('dashboard_temp_gas'))
+        response = add_user(name, lastname, mail, username, password_hash)
+        if response == 1:
+            flash('Usuario o correo ya existe')
+            redirect(url_for('auth.login'))
+        else:
+            user_data = UserData(username, password_hash)
+            user = UserModel(user_data)
+            login_user(user)
+
+            flash('Usuario agregado correctamente')
+            return redirect(url_for('dashboard_temp_gas', next='/dashboard_temp_gas'))
 
     return render_template('signup.html', **context)

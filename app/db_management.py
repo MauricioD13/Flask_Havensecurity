@@ -36,7 +36,12 @@ def init_db():
 def add_user(name, lastname, mail, username, password_hash):
     new_task = User(name, lastname, mail, username, password_hash)
     db.session.add(new_task)
-    db.session.commit()
+    try:
+        db.session.commit()
+        return 0
+    except:
+        return 1
+
 
 def get_user(username):
     user = User.query.filter_by(username=username).first()

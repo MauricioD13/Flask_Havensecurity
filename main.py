@@ -89,6 +89,7 @@ def dashboard_temp_gas():
     }
     return render_template('dashboard_temp_gas.html', **context)
 
+
 @app.route('/dashboard_rfid/<photo_id>', methods=['GET', 'POST'])
 def dashboard_rfid(photo_id):
     photo_form = PhotoForm()
@@ -102,8 +103,8 @@ def dashboard_rfid(photo_id):
         context['photo_url'] = 'images/industrial0'+photo_id+'.jpeg'
         return render_template('dashboard_rfid.html', **context)
 
-
     return render_template('dashboard_rfid.html', **context)
+
 
 @app.route('/about')
 def about():
