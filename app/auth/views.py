@@ -16,7 +16,6 @@ def login():
         'login_form': login_form
     }
     session['big'] = list(range(500))
-    session['secret'] = 'Prueba'
     csrf.generate_csrf()
     # Esta funcion detecta que el método es POST y que el formulario es valido,
     # cuando esto suceda entonces se ejecutará la función
@@ -36,7 +35,7 @@ def login():
                 user = UserModel(user_data)
                 login_user(user)
                 flash('Bienvenido de nuevo')
-                return redirect(url_for('dashboard_temp_gas', next='/dashboard_temp_gas'))
+                return redirect(url_for('dashboard_temp_gas'))
             else:
                 flash('Informacion no coicide 0')
         else:
@@ -59,7 +58,6 @@ def logout():
 def signup():
     signup_form = SignupForm()
     session['big'] = list(range(500))
-    session['secret'] = 'Prueba'
     csrf.generate_csrf()
     context = {
         'signup_form': signup_form
@@ -84,6 +82,6 @@ def signup():
             login_user(user)
 
             flash('Usuario agregado correctamente')
-            return redirect(url_for('dashboard_temp_gas', next='/dashboard_temp_gas'))
+            return redirect(url_for('dashboard_temp_gas'))
 
     return render_template('signup.html', **context)
