@@ -1,6 +1,5 @@
-from flask import request, redirect, render_template, make_response
+from flask import request, redirect, session, render_template, make_response
 from flask_login import login_required, current_user
-
 
 from io import BytesIO
 from matplotlib.figure import Figure
@@ -73,7 +72,7 @@ def haven():
 def dashboard_temp_gas():
     username = current_user.id
     fig = Figure()
-    ax1, ax2 = fig.subplots(1,2)
+    ax1, ax2 = fig.subplots(1, 2)
     ax1.plot(temp_values)
     ax2.plot(gas_values)
     ax1.set_title('Temperatura')

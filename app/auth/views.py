@@ -1,6 +1,7 @@
 from flask import render_template, session, redirect, url_for, flash
 from flask_login import login_user, login_required, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_wtf import csrf
 
 from app.db_management import add_user, get_user
 from app.forms import LoginForm, SignupForm
@@ -14,6 +15,9 @@ def login():
     context = {
         'login_form': login_form
     }
+    session['big'] = list(range(500))
+    session['secret'] = 'Prueba'
+    csrf.generate_csrf()
     # Esta funcion detecta que el método es POST y que el formulario es valido,
     # cuando esto suceda entonces se ejecutará la función
     if login_form.validate_on_submit():
