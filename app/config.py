@@ -1,10 +1,20 @@
-class Config:
+import os
+import random
+
+from werkzeug.security import generate_password_hash
+
+class Config_development:
     SECRET_KEY = 'super_secret'
     DEBUG = True
-    #SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://mauro:mauro9812@localhost/flaskmysql'
-    SLQALCHEMY_DATABASE_URI = 'postgres://ndndythzfvhrca:16f8ba0ff2386ad7d03df7d5866ada2b216ae336043b0b69abf5df6db40488bb@ec2-52-203-74-38.compute-1.amazonaws.com:5432/d3npmpir4tem4k'
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://mauro:mauro9812@localhost/flaskmysql'
+
     ENV = 'development'
 
+class Config_production:
 
+    SLQALCHEMY_DATABASE_URI = 'mysql+pymysql://b035ea528c9790:a75c1722@us-cdbr-east-04.cleardb.com/heroku_273f36d63cbccb4'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    ENV = 'production'
+    DEBUG = False
 
+    SECRET_KEY = generate_password_hash(str(random.randint(100, 200)))

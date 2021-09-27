@@ -4,7 +4,7 @@ from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 
-from .config import Config
+from .config import Config_development, Config_production
 from .auth import auth
 from .models import UserModel
 from .db_management import db, ma
@@ -21,16 +21,16 @@ def load_user(username):
 
 def create_app():
     app = Flask(__name__)
-    bootstrap = Bootstrap(app) #Inicializacion de la extension bootstrap
+    bootstrap = Bootstrap(app)  #Inicializacion de la extension bootstrap
     # Ya se tiene acceso a los archivos HTML, CSS y JS
 
-    app.config.from_object(Config) # Necesario para hacer uso de la sesion
+    app.config.from_object(Config_production)  # Necesario para hacer uso de la sesion
 
     db.init_app(app)
 
     ma.init_app(app)
 
-    login_manager.init_app(app)#Inicializar el administrador de logins en la app
+    login_manager.init_app(app)  #Inicializar el administrador de logins en la app
 
     app.register_blueprint(auth)
 

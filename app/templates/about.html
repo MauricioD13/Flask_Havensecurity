@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block title %}
+    {{super()}}
+    Bienvenidos
+{% endblock %}
+
+{% block content %}
+
+    <div class="container" id="descriptions_about">
+    <hr class="divider">
+      <div class="row">
+        <div class="col-lg-4">
+          <img class="img-circle" src="{{ url_for('static',filename='images/Joan.jpeg') }}" alt="Generic placeholder image" width="300" height="300">
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-8">
+            <h2>Joan Ferney Muñoz</h2>
+
+          <p>Estudiante de noveno semestre de ingeniería electrónica, con énfasis en telecomunicaciones
+              ,con habilidades en el manejo de programas como Altium Designer y orCAD;
+              análisis, diseño de redes de telecomunicaciones básicas y seguridad en redes.</p>
+          <p><a class="btn btn-default" href="https://www.linkedin.com/in/joan-ferney-mu%C3%B1oz-tarazona-04a88620a/" role="button">Detalles &raquo;</a></p>
+        </div>
+      </div>
+    <hr class="divider">
+        <div class="row">
+            <div class="col-lg-4">
+              <img class="img-circle" src="{{ url_for('static', filename='images/Carlos.jpeg') }}" alt="Generic placeholder image" width="300" height="300">
+              </div>
+                <div class="col-lg-8">
+                <h2>Carlos Andres Tuiran</h2>
+              <p>Es una serie de microcontroladores de bajo coste, con un sistema de bajo
+    umo de energía, Wi-Fi integrado y Bluetooth. La serie ESP32 es la sucesora de la
+    e ESP8266 y utiliza un microprocesador de doble núcleo.</p>
+              <p><a class="btn btn-default" href="https://docs.google.com/document/d/1OulnlW_zVC40auX5bitepOwdrdvJ5ZW5/edit?usp=sharing&ouid=113435703447605517676&rtpof=true&sd=true" role="button">Detalles </a></p>
+            </div><!-- /.col-lg-4 -->
+        </div>
+        <hr class="divider">
+        <div class="row">
+            <div class="col-lg-4">
+              <img class="img-circle" src="{{ url_for('static', filename='images/Mauricio.jpg') }}" alt="Generic placeholder image" width="300" height="300">
+            </div>
+            <div class="col-lg-8">
+                <h2>Mauricio David Cuello</h2>
+              <p>Estudiante de ingeniería con gran interés en temas como la ciencia de datos y la ciberseguridad.
+                  Tengo experiencia en programacion con los lenguajes Python y C, así como conocimiento en bases de datos relacionales con SQL y nivel intermedio en el uso de Linux</p>
+              <p><a class="btn btn-default" href="https://www.linkedin.com/in/mauricio-cuello-a1369b1b5/" role="button">Detalles &raquo;</a></p>
+            </div><!-- /.col-lg-4 -->
+        </div>
+    <hr class="divider">
+
+
+    </div><!-- /.container -->
+
+
+{% endblock %}

@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% import 'macros.html' as macros %}
 {% import 'bootstrap/wtf.html' as wtf %}
 
 {% block title %}
@@ -25,11 +24,11 @@
         </ol>
         <div class="carousel-inner" role="listbox">
             <div class="item active">
-                <img class="first-slide" src="{{ url_for('static',filename='images/full_industrial01.jpg') }}"
+                <img class="first-slide" src="{{ url_for('static',filename='images/Logo.png') }}"
                     alt="First slide">
-                <div class="container">
-                    <div class="carousel-caption">
-                        <h1>HavenSecurity</h1>
+                <div class="container" id="first-slide-text">
+                    <div class="carousel-caption" id="carusel_text">
+                        <!--h1>HavenSecurity</h1-->
                         <p>Solucion orientada a industrias pequeñas </p>
                     </div>
                 </div>
@@ -37,20 +36,21 @@
             <div class="item">
                 <img class="second-slide" src="{{ url_for('static',filename='images/iot01.jpg') }}"
                     alt="Second slide">
-                <div class="container">
+                <div class="container" id="second-slide-text">
                     <div class="carousel-caption">
                         <h1>Internet de las cosas</h1>
-                        <p>Contiene tecnologia de internet de las cosas para</p>
+                        <p></p>
                     </div>
                 </div>
             </div>
             <div class="item">
-                <img class="third-slide" src="{{ url_for('static',filename='images/industrial.jpeg') }}"
+                <img class="third-slide" src="{{ url_for('static',filename='images/tech01.jpg') }}"
                     alt="Third slide">
-                <div class="container">
+                <div class="container" id="third-slide-text">
                     <div class="carousel-caption">
-                        <h1>Ejemplo de slide 3</h1>
-                        <p>Aqui va a ir descripciones atracticas del proyecto</p>
+                        <h1>La conciencia del peligro es ya la mitad de la seguridad y de la salvación</h1>
+                        <p>Ramón J. Sénder</p>
+
                     </div>
                 </div>
             </div>
@@ -64,44 +64,85 @@
             </a>
         </div>
     </div>
-    <div class="container" id="resume">
-        <div class="row">
-            <p><h3>El prototipo de seguridad está integrado con tres sensores, temperatura, gases y
-        RFID encargados de la adquisición de las variables físicas y de autenticación
-        respectivamente, el uso de la cámara corresponde a información complementaria
-        para la correlación con el RFID. Adicionalmente se suministra una página WEB
-        donde el usuario puede estar monitoreando el sistema implementado. Finalmente
-        se integra un ventilador quien actúa dependiendo los datos que se reciban de los
-        sensores quien se encarga de regular las condiciones térmicas y de dispersión de
-        gases dependiendo el caso en particular.
-            <!--Justificar, espacio entre renglones y separar parrafos -->
-            </h3></p>
-        </div>
-    </div>
 
     <!--Descripcion del proyecto-->
     <div class="container" id="descriptions">
-          <div class="row">
+        <div class="row">
+            <p class="lead">Nuestra soluci&oacute;n de seguridad f&iacute;sica en las industrias propone usar la tecnolog&iacute;a IoT
+            para tener un registro del ingreso de las personas a una habitaci&oacute;n o pequeña fabrica mediante el
+            uso de un sensor RFID y sus tarjetas respectivas, para aumentar el grado de confiabilidad
+            se us&oacute; una c&aacute;mara que toma una foto al momento del ingreso. Ademas de esto cuenta con
+            sensores de temperatura y gas para evitar niveles peligrosos de las respectivas variables a medir, asi
+                aumetando el bienestar de los trabajadores.</p>
+        </div>
+        <hr class="featurette-divider">
+        <div class="row">
             <div class="col-lg-4">
               <img class="img-circle" src="{{ url_for('static',filename='images/raspberry.jpg') }}" alt="Generic placeholder image" width="140" height="140">
               <h2>Raspberry Pi 3</h2>
-              <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
-              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+              <p>La Raspberry Pi es un ordenador de bajo coste y tamaño reducido, tanto es así que cabe en la palma de la mano, pero puedes conectarle un televisor y un teclado para interactuar con ella exactamente igual que cualquier otra computadora.</p>
+              <p><a class="btn btn-default" href="https://www.raspberrypi.org/" role="button">Detalles &raquo;</a></p>
             </div><!-- /.col-lg-4 -->
             <div class="col-lg-4">
-              <img class="img-circle" src="{{ url_for('static', filename='images/ESP-32.jpg') }}" alt="Generic placeholder image" width="140" height="140">
-              <h2>Modulo ESP32</h2>
-              <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
-              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+              <img class="img-circle" src="{{ url_for('static', filename='images/camara.png') }}" alt="Generic placeholder image" width="140" height="140">
+              <h2>Camara Raspberry Pi</h2>
+              <p>Módulo con Cámara diseñado especialmente para Raspberry Pi. Se conecta en uno de los dos pequeños sockets que tiene la tarjeta Raspberry en su cara superior. Esta conexión, usa la interfaz dedicada CSI, la cual es optima para conectar una camara gracias a su alta capacidad de transmisión de datos.
+</p>
+              <p><a class="btn btn-default" href="https://www.mactronica.com.co/camara-raspberry-pi-5mpx" role="button">Detalles </a></p>
             </div><!-- /.col-lg-4 -->
             <div class="col-lg-4">
-              <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+              <img class="img-circle" src="{{ url_for('static', filename='images/IoTsensores.webp') }}" alt="Generic placeholder image" width="140" height="140">
               <h2>Sensores</h2>
-              <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+              <p>Hoy en día, los niveles de monitorización que se pueden alcanzar son amplísimos y abarcan múltiples ámbitos, incluyendo desde
+                  la productividad de un cultivo hasta la eficiencia energética de un rascacielos</p>
+              <p><a class="btn btn-default" href="#" role="button">Detalles &raquo;</a></p>
             </div><!-- /.col-lg-4 -->
         </div><!-- /.row -->
+     <!-- START THE FEATURETTES -->
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-12">
+          <h2 class="featurette-heading">Esquema general<span class="text-muted"> La seguridad en un dashboard</span></h2>
+          <p class="lead">El diagrama expone la arquitectura de la solución compuesta de 3 fases, la primera la parte sensorial,
+              continuando con el procesamiento y adecuación de los datos y, por último, la fase interactiva con el usuario donde se muestra gráficamente estos datos
+              obtenidos y analizados por medio de una página web. De la fase de la analítica surge también el control del actuador.</p>
+        </div>
       </div>
+      <div class="row featurette">
+        <div class="col-md-12">
+          <img class="featurette-image img-responsive center-block" src="{{ url_for('static', filename='images/diagrama.png') }}" alt="Generic placeholder image">
+        </div>
+      </div>
+
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7 col-md-push-5">
+          <h2 class="featurette-heading">El mundo lleno de señales:<span class="text-muted"> Amplia la cantidad de informacion que tenemos disponible</span></h2>
+          <p class="lead"> Le estamos dando a nuestro mundo un sistema nervioso digital. Datos de ubicación mediante sensor GPS. Ojos y oídos usando cámaras y micrófonos, junto con órganos sensoriales que pueden medir todo, desde la temperatura hasta los cambios de presión.</p>
+        </div>
+        <div class="col-md-5 col-md-pull-7">
+          <img class="featurette-image img-responsive center-block" src="{{ url_for('static', filename='images/tipos-de-sensores.jpg') }}" alt="Generic placeholder image">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+
+      <!-- /END THE FEATURETTES -->
+
+
+      <!-- FOOTER -->
+      <footer>
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>&copy; 2021 HavenSecurity, Inc. &middot;</p>
+      </footer>
+
+    </div><!-- /.container -->
+
 
 
 {% endblock %}

@@ -5,7 +5,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from app.db_management import add_user, get_user
 from app.forms import LoginForm, SignupForm
 from . import auth
-from hmac import compare_digest
 from app.models import UserModel, UserData
 
 
@@ -37,7 +36,7 @@ def login():
                 user = UserModel(user_data)
                 login_user(user)
                 flash('Bienvenido de nuevo')
-                return redirect(url_for('dashboard'))
+                return redirect(url_for('dashboard_temp_gas'))
             else:
                 flash('Informacion no coicide 0')
         else:

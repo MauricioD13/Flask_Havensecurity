@@ -22,3 +22,6 @@ class SignupForm(FlaskForm):
     username = StringField('Nombre de usuario: ', validators=[DataRequired()])
     password = PasswordField('Contraseña: ', validators=[DataRequired()])
     submit = SubmitField('Enviar')
+
+class PhotoForm(FlaskForm):
+    photo = SubmitField('Foto')

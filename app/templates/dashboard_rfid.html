@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block title %}
+    {{super()}}
+    Bienvenidos
+{% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar" id="col_nav_sidebar">
+                  <ul class="nav nav-sidebar">
+                    <li><a href="{{ url_for('dashboard_temp_gas') }}">Gas y Temperatura<span class="sr-only">(current)</span></a></li>
+                    <li class="active"><a href="{{ url_for('dashboard_rfid', photo_id=photo_id) }}">RFID y Camara</a></li>
+                  </ul>
+
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+              <h1 class="page-header">Dashboard</h1>
+              <div class="row placeholders">
+                <div class="col-xs-12 col-sm-12 placeholder">
+                  <img src='{{ url_for('static', filename=photo_url) }}' class="img-responsive" alt="Generic placeholder thumbnail">
+                  <h4>Foto</h4>
+                  <span class="text-muted"></span>
+                </div>
+              </div>
+
+              <h2 class="sub-header">Datos sensores</h2>
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Id persona</th>
+                      <th>Registro foto</th>
+                        <th>Foto</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+
+
+                  {% for id, photo in ids.items() %}
+                    <tr>
+                      <td>#</td>
+                      <td>{{ id }}</td>
+                      <td>{{ photo }}</td>
+                        <td>{{ wtf.quick_form(photo_form, action=url_for('dashboard_rfid', photo_id= photo)) }}</td>
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+          </div>
+        </div>
+        </div>
+    </div>
+{% endblock %}

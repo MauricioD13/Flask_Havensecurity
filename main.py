@@ -1,12 +1,13 @@
-import io
-
 from flask import request, redirect, render_template, session, make_response
 from flask_login import login_required, current_user
-import base64
+
+
 from io import BytesIO
 from matplotlib.figure import Figure
+import base64
 
 from app import create_app
+from app.forms import PhotoForm
 from app.db_management import init_db
 import random
 
@@ -14,16 +15,25 @@ random.seed(0)
 
 app, db, ma = create_app()
 
+ids = {}
+gas = {}
 temp = {}
-x_values = []
+temp_values = []
+gas_values = []
 for i in range(5):
     aux = random.randint(1, 35)
-    x_values.append(aux)
+    temp_values.append(aux)
     temp[str(aux)] = '0' + str(random.randint(1, 30)) + '/' + '0' + str(random.randint(1, 12))
 
-gas = {}
+
 for i in range(5):
-    gas[str(random.randint(300, 800))] = '0' + str(random.randint(1, 30)) + '/' + '0' + str(random.randint(1, 12))
+    aux = random.randint(300, 800)
+    gas_values.append(aux)
+    gas[str(aux)] = '0' + str(random.randint(1, 30)) + '/' + '0' + str(random.randint(1, 12))
+
+for i in range(5):
+    aux = random.randint(10000, 100000)
+    ids[str(aux)] = i
 
 
 with app.app_context():
@@ -61,39 +71,48 @@ def haven():
     return render_template('haven.html', **context)
 
 
-@app.route('/dashboard')
+@app.route('/dashboard_temp_gas')
 @login_required
-def dashboard():
+def dashboard_temp_gas():
     username = current_user.id
     fig = Figure()
-    ax = fig.subplots()
-    ax.plot(x_values)
+    ax1, ax2 = fig.subplots(1,2)
+    ax1.plot(temp_values)
+    ax2.plot(gas_values)
+    ax1.set_title('Temperatura')
+    ax2.set_title('Gas')
     buf = BytesIO()
     fig.savefig(buf, format="png")
-
-
+    graph = base64.b64encode(buf.getbuffer()).decode("ascii")
     context = {
         'temp': temp,
         'gas': gas,
-        'username': username
+        'username': username,
+        'graph': graph
+
     }
-    return render_template('dashboard.html', **context)
+    return render_template('dashboard_temp_gas.html', **context)
+
+@app.route('/dashboard_rfid/<photo_id>', methods=['GET', 'POST'])
+@login_required
+def dashboard_rfid(photo_id):
+    photo_form = PhotoForm()
+    context = {
+        'ids': ids,
+        'photo_form': photo_form,
+        'photo_url': 'images/industrial00.jpeg',
+        'photo_id': photo_id
+    }
+    if photo_form.validate_on_submit():
+        context['photo_url'] = 'images/industrial0'+photo_id+'.jpeg'
+        return render_template('dashboard_rfid.html', **context)
 
 
-"""
-#Rutas dinamicas que cambian segun un parametro
-@app.route('/todos/delete/<todo_id>', methods=['POST'])
-def delete(todo_id):
-    user_id = current_user.id
-    delete_to_do(user_id=user_id, todo_id=todo_id)
-    return redirect(url_for('hello'))
+    return render_template('dashboard_rfid.html', **context)
 
-@app.route('/todos/update/<todo_id>/<int:done>', methods = ['POST'])
-def update(todo_id, done):
-    user_id = current_user.id
-    update_to_do(user_id, todo_id, done)
-    return redirect(url_for('hello'))
-"""
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 
 @app.errorhandler(404)  # Manejo de error de la pagina

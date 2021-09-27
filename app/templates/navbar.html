@@ -11,18 +11,19 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{{ url_for('index') }}">
-              <img src="{{ url_for('static', filename='images/shuriken.png') }}"
+          <!--a class="navbar-brand" href="{{ url_for('index') }}">
+              <img src="{{ url_for('static', filename='images/Logo.png') }}"
                    style="max-width: 30px"
-                   alt="shuriken_logo">
-          </a>
+                   alt="logo">
+          </a-->
       </div>
       <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
               <li><a href="{{ url_for('haven')}}">HavenSecurity</a></li>
               <li role="separator" class="divider"></li>
-              <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+              <li><a href="{{ url_for('dashboard_temp_gas') }}">Dashboard</a></li>
               <li><a href="https://drive.google.com/file/d/1yH2rT9dxFcb_DUl5b6XgTJXu8UfvVcGa/view">Detalles</a></li>
+              <li><a href="{{ url_for('about') }}">Sobre nosotros</a></li>
               {% if current_user.is_authenticated %}
                   <li><a href="{{url_for('auth.logout')}}">Logout</a></li>
               {% else %}

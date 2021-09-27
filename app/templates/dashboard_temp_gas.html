@@ -10,29 +10,17 @@
         <div class="row">
             <div class="col-sm-3 col-md-2 sidebar" id="col_nav_sidebar">
                   <ul class="nav nav-sidebar">
-                    <li class="active"><a href="#">Overview<span class="sr-only">(current)</span></a></li>
-                    <li><a href="#">Reports</a></li>
-                    <li><a href="#">Analytics</a></li>
-                    <li><a href="#">Export</a></li>
-                  </ul>
-
-                  <ul class="nav nav-sidebar">
-
-                    <li><a href="">Recargar</a></li>
+                    <li class="active"><a href="{{ url_for('dashboard_temp_gas') }}">Gas y Temperatura<span class="sr-only">(current)</span></a></li>
+                    <li><a href="{{ url_for('dashboard_rfid', photo_id='0001') }}">RFID y Camara</a></li>
                   </ul>
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
               <h1 class="page-header">Dashboard</h1>
               <div class="row placeholders">
-                <div class="col-xs-6 col-sm-6 placeholder">
-                  <img src="{{ url_for('static',filename='images/png') }}" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                  <h4>Grafica Gas</h4>
-                  <span class="text-muted">Something else</span>
-                </div>
-                <div class="col-xs-6 col-sm-6 placeholder">
-                  <img src="{{ url_for('static',filename='images/graf.png') }}" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                  <h4>Grafica temperatura</h4>
-                  <span class="text-muted">Something else</span>
+                <div class="col-xs-12 col-sm-12 placeholder">
+                  <img src='data:image/png;base64,{{ graph }}' class="img-responsive" alt="Generic placeholder thumbnail">
+                  <h4>Graficas</h4>
+                  <span class="text-muted"></span>
                 </div>
               </div>
 
@@ -43,19 +31,19 @@
                     <tr>
                       <th>#</th>
                       <th>Temperatura</th>
-                      <th>Hora</th>
+                      <th>Fecha</th>
                       <th>Gas</th>
-                      <th>Hora</th>
+                      <th>Fecha</th>
                     </tr>
                   </thead>
                   <tbody>
-                  {
+
 
 
                   {% for key_temp, value_temp in temp.items() %}
                       {% for key_gas, value_gas in gas.items() %}
                     <tr>
-                      <td>1,001</td>
+                      <td>#</td>
                       <td>{{ key_temp }} °C</td>
                       <td>{{ value_temp }}</td>
                       <td>{{ key_gas }} ppm</td>
