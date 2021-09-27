@@ -25,10 +25,6 @@ def login():
         if user_obj is not None:
             password_from_db = user_obj.password
 
-            print(f"password: {password}")
-            print("--------------------------------")
-            print(f"password_from_db: {password_from_db}")
-
             if check_password_hash(password_from_db, password):
                 """Se usa compare_digest porque evita los ataques de tiempos
                 Es decir, no revela informacion por el tiempo de comparacion"""
