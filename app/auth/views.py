@@ -71,14 +71,12 @@ def signup():
         username = signup_form.username.data
         password = signup_form.password.data
         password_hash = generate_password_hash(password)
-        
-        user_data = UserData(username, password_hash)
         add_user(name, lastname, mail, username, password_hash)
+        user_data = UserData(username, password_hash)
         user = UserModel(user_data)
         login_user(user)
         
         flash('Usuario agregado correctamente')
         return redirect(url_for('dashboard_temp_gas'))
-
 
     return render_template('signup.html', **context)

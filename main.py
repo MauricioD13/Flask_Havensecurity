@@ -91,7 +91,6 @@ def dashboard_temp_gas():
     return render_template('dashboard_temp_gas.html', **context)
 
 @app.route('/dashboard_rfid/<photo_id>', methods=['GET', 'POST'])
-@login_required
 def dashboard_rfid(photo_id):
     photo_form = PhotoForm()
     context = {
