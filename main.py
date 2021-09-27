@@ -1,4 +1,4 @@
-from flask import request, redirect, render_template, session, make_response
+from flask import request, redirect, render_template, make_response
 from flask_login import login_required, current_user
 
 
@@ -63,10 +63,8 @@ def haven():
     Returns:
         [method]:Pasar parametros por medio de un diccionario al html y renderizar HTML 
     """
-    user_ip = session.get('user_ip')
-
     context = {
-        'user_ip': user_ip
+        'user_ip': '00'
     }
     return render_template('haven.html', **context)
 
