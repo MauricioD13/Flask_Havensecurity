@@ -78,7 +78,7 @@ def signup():
         login_user(user)
         
         flash('Usuario agregado correctamente')
-        return redirect(url_for('dashboard'))
+        return redirect(url_for('dashboard_temp_gas'))
 
 
     return render_template('signup.html', **context)

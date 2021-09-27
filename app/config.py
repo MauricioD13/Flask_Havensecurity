@@ -10,11 +10,12 @@ class Config_development:
 
     ENV = 'development'
 
+
 class Config_production:
 
-    SLQALCHEMY_DATABASE_URI = 'mysql+pymysql://b035ea528c9790:a75c1722@us-cdbr-east-04.cleardb.com/heroku_273f36d63cbccb4?reconnect=true'
+    #
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     ENV = 'production'
     DEBUG = False
-
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://b035ea528c9790:a75c1722@us-cdbr-east-04.cleardb.com/heroku_273f36d63cbccb4'
     SECRET_KEY = generate_password_hash(str(random.randint(100, 200)))
