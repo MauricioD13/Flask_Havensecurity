@@ -12,7 +12,7 @@ class Config_development:
 
 
 class Config_production:
-
+    WTF_CSRF_ENABLED = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     ENV = 'production'
     DEBUG = False

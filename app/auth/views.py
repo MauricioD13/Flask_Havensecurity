@@ -15,9 +15,7 @@ def login():
     context = {
         'login_form': login_form
     }
-    session['big'] = list(range(500))
-    session['secret'] = "A secret phrase!"
-    csrf.generate_csrf()
+
     # Esta funcion detecta que el método es POST y que el formulario es valido,
     # cuando esto suceda entonces se ejecutará la función
     if login_form.validate_on_submit():
@@ -58,9 +56,7 @@ def logout():
 @auth.route('signup', methods=['GET', 'POST'])
 def signup():
     signup_form = SignupForm()
-    session['big'] = list(range(500))
-    session['secret'] = "A secret phrase!"
-    csrf.generate_csrf()
+
     context = {
         'signup_form': signup_form
     }
