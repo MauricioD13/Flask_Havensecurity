@@ -10,8 +10,8 @@
         <div class="row">
             <div class="col-sm-3 col-md-2 sidebar" id="col_nav_sidebar">
                   <ul class="nav nav-sidebar">
-                    <li><a href="{{ url_for('dashboard_temp_gas') }}">Gas y Temperatura<span class="sr-only">(current)</span></a></li>
-                    <li class="active"><a href="{{ url_for('dashboard_rfid', photo_id=photo_id) }}">RFID y Camara</a></li>
+                    <li><a href="{{ url_for('dashboard', option='temp') }}">Gas y Temperatura<span class="sr-only">(current)</span></a></li>
+                    <li class="active"><a href="{{ url_for('dashboard', option='rfid') }}">RFID y Camara</a></li>
                   </ul>
 
             </div>
@@ -46,7 +46,7 @@
                       <td>{{ id }}</td>
                       <td>{{ photo }}</td>
                         <td>
-                            <form action='{{ url_for("dashboard_rfid") }}' method="post">
+                            <form action='{{ url_for("dashboard", option='rfid') }}' method="post">
                                 <input type="submit" name="sub_butt" class='btn btn-success' value={{ photo }}>
                             </form>
                         </td>

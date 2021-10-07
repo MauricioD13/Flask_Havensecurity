@@ -22,7 +22,7 @@ def create_app():
     bootstrap = Bootstrap(app)  #Inicializacion de la extension bootstrap
     # Ya se tiene acceso a los archivos HTML, CSS y JS
 
-    app.config.from_object(Config_production)  # Necesario para hacer uso de la sesion
+    app.config.from_object(Config_development)  # Necesario para hacer uso de la sesion
 
     db.init_app(app)
 
@@ -32,5 +32,5 @@ def create_app():
 
     app.register_blueprint(auth)
 
-    return app, db, ma
+    return app, db, ma, login_manager
 

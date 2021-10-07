@@ -11,7 +11,7 @@ import random
 
 random.seed(0)
 
-app, db, ma = create_app()
+app, db, ma, login_manager = create_app()
 
 ids = {}
 gas = {}
@@ -63,9 +63,9 @@ def haven():
     return render_template('haven.html')
 
 
-@app.route('/dashboard_temp_gas')
+@app.route('/dashboard/<option>', methods=['GET', 'POST'])
 @login_required
-def dashboard_temp_gas():
+def dashboard(option):
     username = current_user.id
     fig = Figure()
     ax1, ax2 = fig.subplots(1, 2)
@@ -80,15 +80,20 @@ def dashboard_temp_gas():
         'temp': temp,
         'gas': gas,
         'username': username,
-        'graph': graph
-
+        'graph': graph,
+        'ids': ids,
+        'photo_url': 'images/industrial00.jpeg'
     }
+    if option == 'rfid':
+        if request.method == 'POST':
+            context['photo_url'] = 'images/industrial0' + request.form['sub_butt'] + '.jpeg'
+        return render_template('dashboard_rfid.html', **context)
     return render_template('dashboard_temp_gas.html', **context)
 
 
 @app.route('/dashboard_rfid', methods=['GET', 'POST'])
 @login_required
-def dashboard_rfid(photo_id):
+def dashboard_rfid():
     context = {
         'ids': ids,
         'photo_url': 'images/industrial00.jpeg',
@@ -113,3 +118,5 @@ def not_found(error):
 def server_error(error):
     return render_template('Error_500.html', error=error)
 
+if __name__ == '__main__':
+    app.run(debug=True)
