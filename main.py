@@ -117,6 +117,3 @@ def not_found(error):
 @app.errorhandler(500)
 def server_error(error):
     return render_template('Error_500.html', error=error)
-
-if __name__ == '__main__':
-    app.run(debug=True)
