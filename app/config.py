@@ -1,6 +1,5 @@
-import os
 import random
-
+from datetime import timedelta
 from werkzeug.security import generate_password_hash
 
 class Config_development:
@@ -16,5 +15,6 @@ class Config_production:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     ENV = 'production'
     DEBUG = False
+    REMEMBER_COOKIE_DURATION = timedelta(seconds=20)
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://b035ea528c9790:a75c1722@us-cdbr-east-04.cleardb.com/heroku_273f36d63cbccb4'
     SECRET_KEY = generate_password_hash(str(random.randint(100, 200)))

@@ -32,7 +32,7 @@ def login():
                 Es decir, no revela informacion por el tiempo de comparacion"""
                 user_data = UserData(username, password)
                 user = UserModel(user_data)
-                login_user(user, remember=True)
+                login_user(user)
                 flash('Bienvenido de nuevo')
                 return redirect(url_for('dashboard'))
             else:
