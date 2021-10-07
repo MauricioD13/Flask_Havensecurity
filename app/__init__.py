@@ -1,7 +1,6 @@
 from flask import Flask
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
-from flask_wtf import CsrfProtect
 
 from .config import Config_development, Config_production
 from .auth import auth
@@ -24,7 +23,7 @@ def create_app():
     # Ya se tiene acceso a los archivos HTML, CSS y JS
 
     app.config.from_object(Config_production)  # Necesario para hacer uso de la sesion
-    csrf = CsrfProtect(app)
+
     db.init_app(app)
 
     ma.init_app(app)

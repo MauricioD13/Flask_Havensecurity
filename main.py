@@ -6,7 +6,6 @@ from matplotlib.figure import Figure
 import base64
 
 from app import create_app
-from app.forms import PhotoForm
 from app.db_management import init_db
 import random
 
@@ -61,10 +60,7 @@ def haven():
     Returns:
         [method]:Pasar parametros por medio de un diccionario al html y renderizar HTML 
     """
-    context = {
-        'user_ip': '00'
-    }
-    return render_template('haven.html', **context)
+    return render_template('haven.html')
 
 
 @app.route('/dashboard_temp_gas')
@@ -90,20 +86,17 @@ def dashboard_temp_gas():
     return render_template('dashboard_temp_gas.html', **context)
 
 
-@app.route('/dashboard_rfid/<photo_id>', methods=['GET', 'POST'])
+@app.route('/dashboard_rfid', methods=['GET', 'POST'])
 @login_required
-def dashboard_rfid(photo_id):
+def dashboard_rfid():
     photo_form = PhotoForm()
     context = {
         'ids': ids,
         'photo_form': photo_form,
         'photo_url': 'images/industrial00.jpeg',
-        'photo_id': photo_id
     }
-    if photo_form.validate_on_submit():
-        context['photo_url'] = 'images/industrial0'+photo_id+'.jpeg'
-        return render_template('dashboard_rfid.html', **context)
-
+    if request.method == 'POST':
+        context['photo_url'] = 'images/industrial0'+request.form['sub_butt'] + '.jpeg'
     return render_template('dashboard_rfid.html', **context)
 
 
@@ -121,5 +114,4 @@ def not_found(error):
 @app.errorhandler(500)
 def server_error(error):
     return render_template('Error_500.html', error=error)
-
 

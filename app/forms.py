@@ -22,5 +22,4 @@ class SignupForm(FlaskForm):
     password = PasswordField('Contraseña: ', validators=[DataRequired()])
     submit = SubmitField('Enviar')
 
-class PhotoForm(FlaskForm):
-    photo = SubmitField('Foto')
+

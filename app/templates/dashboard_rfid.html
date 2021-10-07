@@ -45,7 +45,11 @@
                       <td>#</td>
                       <td>{{ id }}</td>
                       <td>{{ photo }}</td>
-                        <td>{{ wtf.quick_form(photo_form, action=url_for('dashboard_rfid', photo_id= photo)) }}</td>
+                        <td>
+                            <form action='{{ url_for("dashboard_rfid") }}' method="post">
+                                <input type="submit" name="sub_butt" class='btn btn-success' value={{ photo }}>
+                            </form>
+                        </td>
                     </tr>
                   {% endfor %}
                   </tbody>
