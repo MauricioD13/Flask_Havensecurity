@@ -5,6 +5,7 @@ from io import BytesIO
 from matplotlib.figure import Figure
 import base64
 
+from app.forms import DashboardForm, PhotoForm
 from app import create_app
 from app.db_management import init_db
 import random
@@ -63,9 +64,10 @@ def haven():
     return render_template('haven.html')
 
 
-@app.route('/dashboard/<option>', methods=['GET', 'POST'])
+@app.route('/dashboard', methods=['GET', 'POST'])
 @login_required
-def dashboard(option):
+def dashboard():
+
     username = current_user.id
     fig = Figure()
     ax1, ax2 = fig.subplots(1, 2)
@@ -82,24 +84,25 @@ def dashboard(option):
         'username': username,
         'graph': graph,
         'ids': ids,
-        'photo_url': 'images/industrial00.jpeg'
+
     }
-    if option == 'rfid':
-        if request.method == 'POST':
-            context['photo_url'] = 'images/industrial0' + request.form['sub_butt'] + '.jpeg'
-        return render_template('dashboard_rfid.html', **context)
+
     return render_template('dashboard_temp_gas.html', **context)
 
 
 @app.route('/dashboard_rfid', methods=['GET', 'POST'])
 @login_required
 def dashboard_rfid():
+    photo_form = PhotoForm()
     context = {
         'ids': ids,
         'photo_url': 'images/industrial00.jpeg',
+        'photo_form': photo_form
     }
-    if request.method == 'POST':
-        context['photo_url'] = 'images/industrial0'+request.form['sub_butt'] + '.jpeg'
+    photo_id = '0'
+    if photo_form.validate_on_submit():
+        photo_id = photo_form.photo_id.data
+    context['photo_url'] = 'images/industrial0' + photo_id + '.jpeg'
     return render_template('dashboard_rfid.html', **context)
 
 
@@ -117,3 +120,6 @@ def not_found(error):
 @app.errorhandler(500)
 def server_error(error):
     return render_template('Error_500.html', error=error)
+"""
+if __name__ == '__main__':
+    app.run(debug=True)"""

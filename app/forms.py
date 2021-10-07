@@ -23,3 +23,10 @@ class SignupForm(FlaskForm):
     submit = SubmitField('Enviar')
 
 
+class DashboardForm(FlaskForm):
+    change = SubmitField('RFID y Fotos')
+
+
+class PhotoForm(FlaskForm):
+    photo_id = StringField('Foto ID', validators=[DataRequired()])
+    submit = SubmitField('Cargar')
