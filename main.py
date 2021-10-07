@@ -88,11 +88,9 @@ def dashboard_temp_gas():
 
 @app.route('/dashboard_rfid', methods=['GET', 'POST'])
 @login_required
-def dashboard_rfid():
-    photo_form = PhotoForm()
+def dashboard_rfid(photo_id):
     context = {
         'ids': ids,
-        'photo_form': photo_form,
         'photo_url': 'images/industrial00.jpeg',
     }
     if request.method == 'POST':
