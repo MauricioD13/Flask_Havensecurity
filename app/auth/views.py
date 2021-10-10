@@ -34,7 +34,7 @@ def login():
                 user = UserModel(user_data)
                 login_user(user)
                 flash('Bienvenido de nuevo')
-                return redirect(url_for('dashboard', next='dashboard'))
+                return redirect(url_for('dashboard', option = 'temp'))
             else:
                 flash('Informacion no coicide 0')
         else:

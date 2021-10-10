@@ -10,24 +10,43 @@
         <div class="row">
             <div class="col-sm-3 col-md-2 sidebar" id="col_nav_sidebar">
                   <ul class="nav nav-sidebar">
-                    <li class="active"><a href="{{ url_for('dashboard', next='dashboard') }}">Gas y Temperatura<span class="sr-only">(current)</span></a></li>
-                    <li><a href="{{ url_for('dashboard_rfid', next='dashboard') }}">RFID y Camara</a></li>
+                      {% if option == 'temp' %}
+                          <li class="active"><a href="{{ url_for('dashboard', option='temp') }}">Gas y Temperatura<span class="sr-only">(current)</span></a></li>
+                          <li><a href="{{ url_for('dashboard', option='rfid') }}">RFID y Camara</a></li>
+                      {% else %}
+                          <li><a href="{{ url_for('dashboard', option='temp') }}">Gas y Temperatura<span class="sr-only">(current)</span></a></li>
+                          <li class="active"><a href="{{ url_for('dashboard', option='rfid') }}">RFID y Camara</a></li>
+                      {% endif %}
                   </ul>
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
               <h1 class="page-header">Dashboard</h1>
               <div class="row placeholders">
                 <div class="col-xs-12 col-sm-12 placeholder">
-                  <img src='data:image/png;base64,{{ graph }}' class="img-responsive" alt="Generic placeholder thumbnail">
-                  <h4>Graficas</h4>
+                    {% if option == 'temp' %}
+                        <img src='data:image/png;base64,{{ graph }}' class="img-responsive" alt="Generic placeholder thumbnail">
+                        <h4>Graficas</h4>
+                    {% else %}
+                        <img src='{{ url_for('static', filename=photo_url) }}' class="img-responsive" alt="Generic placeholder thumbnail">
+                        <h4>Foto</h4>
+                    {% endif %}
                   <span class="text-muted"></span>
                 </div>
               </div>
-
+                {% if option == "rfid" %}
+                    <div class="container">
+                        <form method="post">
+                            {{ photo_form.photo_id.label }}
+                            {{ photo_form.photo_id }}
+                            {{ photo_form.submit }}
+                        </form>
+                    </div>
+                {% endif %}
               <h2 class="sub-header">Datos sensores</h2>
               <div class="table-responsive">
                 <table class="table table-striped">
                   <thead>
+                  {% if option == 'temp' %}
                     <tr>
                       <th>#</th>
                       <th>Temperatura</th>
@@ -35,22 +54,38 @@
                       <th>Gas</th>
                       <th>Fecha</th>
                     </tr>
+                  {% else %}
+                      <tr>
+                          <th>#</th>
+                          <th>Id persona</th>
+                          <th>Registro foto</th>
+                      </tr>
+                  {% endif %}
                   </thead>
+
                   <tbody>
-
-
-
-                  {% for key_temp, value_temp in temp.items() %}
-                      {% for key_gas, value_gas in gas.items() %}
-                    <tr>
-                      <td>#</td>
-                      <td>{{ key_temp }} °C</td>
-                      <td>{{ value_temp }}</td>
-                      <td>{{ key_gas }} ppm</td>
-                      <td>{{ value_gas }}</td>
-                    </tr>
+                  {% if option == 'temp' %}
+                      {% for key_temp, value_temp in temp.items() %}
+                          {% for key_gas, value_gas in gas.items() %}
+                        <tr>
+                          <td>#</td>
+                          <td>{{ key_temp }} °C</td>
+                          <td>{{ value_temp }}</td>
+                          <td>{{ key_gas }} ppm</td>
+                          <td>{{ value_gas }}</td>
+                        </tr>
+                          {% endfor %}
                       {% endfor %}
-                  {% endfor %}
+                  {% else %}
+                      {% for id, photo in ids.items() %}
+                        <tr>
+                          <td>#</td>
+                          <td>{{ id }}</td>
+                          <td>{{ photo }}</td>
+                        </tr>
+                      {% endfor %}
+
+                  {% endif %}
                   </tbody>
                 </table>
           </div>

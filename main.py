@@ -4,6 +4,7 @@ from flask_login import login_required, current_user
 from io import BytesIO
 from matplotlib.figure import Figure
 import base64
+from datetime import timedelta
 
 from app.forms import DashboardForm, PhotoForm
 from app import create_app
@@ -53,7 +54,7 @@ def index():
     return response
 
 
-@app.route('/haven', methods=['GET', 'POST'])
+@app.route('/haven')
 def haven():
     """Método que se usa para:
     - Crear una sesion y guardar la ip del usuario 
@@ -63,10 +64,16 @@ def haven():
     """
     return render_template('haven.html')
 
+@app.before_request
+def make_session_permanent():
+    session.permanent = True
+    app.permanent_session_lifetime = timedelta(minutes=5)
 
-@app.route('/dashboard', methods=['GET', 'POST'])
+@app.route('/dashboard/<option>', methods=['GET', 'POST'])
 @login_required
-def dashboard():
+def dashboard(option):
+
+    photo_form = PhotoForm()
 
     username = current_user.id
     fig = Figure()
@@ -78,15 +85,22 @@ def dashboard():
     buf = BytesIO()
     fig.savefig(buf, format="png")
     graph = base64.b64encode(buf.getbuffer()).decode("ascii")
+
     context = {
         'temp': temp,
         'gas': gas,
         'username': username,
         'graph': graph,
         'ids': ids,
-
+        'photo_form': photo_form,
+        'photo_url': 'images/industrial00.jpeg',
+        'option': option
     }
 
+    photo_id = '0'
+    if photo_form.validate_on_submit():
+        photo_id = photo_form.photo_id.data
+    context['photo_url'] = 'images/industrial0' + photo_id + '.jpeg'
     return render_template('dashboard_temp_gas.html', **context)
 
 
@@ -120,6 +134,6 @@ def not_found(error):
 @app.errorhandler(500)
 def server_error(error):
     return render_template('Error_500.html', error=error)
-"""
+
 if __name__ == '__main__':
-    app.run(debug=True)"""
+    app.run(debug=True)
