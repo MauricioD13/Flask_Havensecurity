@@ -1,4 +1,4 @@
-from flask import render_template, session, redirect, url_for, flash
+from flask import render_template, session, redirect, url_for, flash, request
 from flask_login import login_user, login_required, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_wtf import csrf
@@ -34,7 +34,7 @@ def login():
                 user = UserModel(user_data)
                 login_user(user)
                 flash('Bienvenido de nuevo')
-                return redirect(url_for('dashboard', option = 'temp'))
+                return redirect(url_for('dashboard', option = 'temp', next=request.url))
             else:
                 flash('Informacion no coicide 0')
         else:

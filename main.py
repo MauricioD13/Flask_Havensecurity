@@ -70,8 +70,9 @@ def make_session_permanent():
     app.permanent_session_lifetime = timedelta(minutes=5)
 
 @app.route('/dashboard/<option>', methods=['GET', 'POST'])
-@login_required
 def dashboard(option):
+    if not current_user.is_authenticated:
+        return app.login_manager.unauthorized()
 
     photo_form = PhotoForm()
 
@@ -134,6 +135,6 @@ def not_found(error):
 @app.errorhandler(500)
 def server_error(error):
     return render_template('Error_500.html', error=error)
-
+"""
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True)"""
