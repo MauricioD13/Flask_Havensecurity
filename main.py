@@ -70,9 +70,8 @@ def make_session_permanent():
     app.permanent_session_lifetime = timedelta(minutes=5)
 
 @app.route('/dashboard/<option>', methods=['GET', 'POST'])
+@login_required
 def dashboard(option):
-    if not current_user.is_authenticated:
-        return app.login_manager.unauthorized()
 
     photo_form = PhotoForm()
 
