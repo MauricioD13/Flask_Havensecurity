@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% from flask import request %}
 {% import 'bootstrap/wtf.html' as wtf %}
 
 {% block title %}
@@ -12,7 +11,7 @@
             <div class="col-sm-3 col-md-2 sidebar" id="col_nav_sidebar">
                   <ul class="nav nav-sidebar">
                       {% if option == 'temp' %}
-                          <li class="active"><a href="{{ url_for('dashboard', option='temp', next=request.url) }}">Gas y Temperatura<span class="sr-only">(current)</span></a></li>
+                          <li class="active"><a href="{{ url_for('dashboard', option='temp', next='dashboard') }}">Gas y Temperatura<span class="sr-only">(current)</span></a></li>
                           <li><a href="{{ url_for('dashboard', option='rfid', next=request.url) }}">RFID y Camara</a></li>
                       {% else %}
                           <li><a href="{{ url_for('dashboard', option='temp', next=request.url) }}">Gas y Temperatura<span class="sr-only">(current)</span></a></li>
