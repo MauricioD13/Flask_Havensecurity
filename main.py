@@ -92,14 +92,12 @@ def dashboard(option):
         'photo_url': 'images/industrial00.jpeg',
         'option': option
     }
-    next_page = request.args.get('next')
-    if not next_page or url_parse(next_page).netloc != '':
-        next_page = url_for('dashboard', option='temp')
+
     photo_id = '0'
     if photo_form.validate_on_submit():
         photo_id = photo_form.photo_id.data
     context['photo_url'] = 'images/industrial0' + photo_id + '.jpeg'
-    return render_template(next_page)
+    return render_template('dashboard_temp_gas.html', **context)
 
 
 @app.route('/dashboard_rfid', methods=['GET', 'POST'])
@@ -134,6 +132,6 @@ def server_error(error):
     return render_template('Error_500.html', error=error)
 
 
-"""
+
 if __name__ == '__main__':
-    app.run(debug=True)"""
+    app.run(debug=True)

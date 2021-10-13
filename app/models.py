@@ -1,4 +1,6 @@
 from flask_login import UserMixin
+from .db_management import get_user
+
 
 class UserData:
     def __init__(self, username, password):
@@ -15,10 +17,10 @@ class UserModel(UserMixin):
         self.password = user_data.password
 
     @staticmethod
-    def query(user_id):
-
+    def query(username):
+        user = get_user(username)
         user_data = UserData(
-            username='mauro',
-            password='12345'
+            username=username,
+            password=user.password
         )
         return UserModel(user_data)

@@ -34,11 +34,10 @@ def login():
                 user_data = UserData(username, password)
                 user = UserModel(user_data)
                 login_user(user)
-                next_page = request.args.get('next')
-                if not next_page or url_parse(next_page).netloc != '':
-                    next_page = url_for('dashboard', option='temp')
+
                 flash('Bienvenido de nuevo')
-                return redirect(next_page)
+
+                return redirect(url_for('dashboard', option='temp'))
             else:
                 flash('Informacion no coicide 0')
         else:
