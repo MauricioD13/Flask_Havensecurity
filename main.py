@@ -1,5 +1,6 @@
-from flask import request, redirect, session, render_template, make_response
+from flask import request, redirect, session, render_template, make_response, url_for
 from flask_login import login_required, current_user
+from werkzeug.urls import url_parse
 
 from io import BytesIO
 from matplotlib.figure import Figure
@@ -95,7 +96,9 @@ def dashboard(option):
         'photo_url': 'images/industrial00.jpeg',
         'option': option
     }
-
+    next_page = request.args.get('next')
+    if not next_page or url_parse(next_page).netloc != '':
+        next_page = url_for('dashboard', option='temp')
     photo_id = '0'
     if photo_form.validate_on_submit():
         photo_id = photo_form.photo_id.data
