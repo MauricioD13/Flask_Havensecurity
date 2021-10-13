@@ -65,10 +65,6 @@ def haven():
     """
     return render_template('haven.html')
 
-@app.before_request
-def make_session_permanent():
-    session.permanent = True
-    app.permanent_session_lifetime = timedelta(minutes=5)
 
 @app.route('/dashboard/<option>', methods=['GET', 'POST'])
 @login_required
@@ -103,7 +99,7 @@ def dashboard(option):
     if photo_form.validate_on_submit():
         photo_id = photo_form.photo_id.data
     context['photo_url'] = 'images/industrial0' + photo_id + '.jpeg'
-    return render_template('dashboard_temp_gas.html', **context)
+    return render_template(next_page)
 
 
 @app.route('/dashboard_rfid', methods=['GET', 'POST'])
