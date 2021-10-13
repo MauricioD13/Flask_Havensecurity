@@ -74,7 +74,6 @@ def make_session_permanent():
 def dashboard(option):
 
     photo_form = PhotoForm()
-
     username = current_user.id
     fig = Figure()
     ax1, ax2 = fig.subplots(1, 2)
@@ -135,5 +134,7 @@ def not_found(error):
 def server_error(error):
     return render_template('Error_500.html', error=error)
 
+
+"""
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True)"""

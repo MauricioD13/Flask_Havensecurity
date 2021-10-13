@@ -1,6 +1,7 @@
 from flask import render_template, session, redirect, url_for, flash, request
 from flask_login import login_user, login_required, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.urls import url_parse
 from flask_wtf import csrf
 
 from app.db_management import add_user, get_user
@@ -33,8 +34,11 @@ def login():
                 user_data = UserData(username, password)
                 user = UserModel(user_data)
                 login_user(user)
+                next_page = request.args.get('next')
+                if not next_page or url_parse(next_page).netloc != '':
+                    next_page = url_for('dashboard', option='temp')
                 flash('Bienvenido de nuevo')
-                return redirect(url_for('dashboard', option = 'temp', next=request.url))
+                return redirect(next_page)
             else:
                 flash('Informacion no coicide 0')
         else:
@@ -49,6 +53,7 @@ def login():
 @login_required
 def logout():
     logout_user()
+    session.clear()
     flash('Regresa pronto')
     return redirect(url_for('haven'))
 
