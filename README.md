@@ -7,6 +7,7 @@ Aplicacion web para el proyecto de IoT. Esta aplicación se hizo en el framework
 - gunicorn: Necesario para poder llevar la app a la nube de Heroku
 ### Estructura
 main.py: Rutas y logico general de la aplicación 
+
 App ->
   - auth: Contiene todos los archivos necesarios para la autenticacion y registro
   - static: Archivos estáticos, es decir, archivos de CSS y las imagenes usadas
